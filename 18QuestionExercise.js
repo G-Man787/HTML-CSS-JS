@@ -3,12 +3,18 @@ exports.findPorcupineNumber=findPorcupineNumber;
 exports.addToTarget= addToTarget;
 exports.mostFrequent=mostFrequent;
 exports.closestToZero=closestToZero;
-exports.Nonnegetive=Nonnegetive;
-exports.addBinary1=addBinary1;
-exports.convertToSingleDigit=convertToSingleDigit;
-exports.absoluteDifference=absoluteDifference;
-exports.gcdString=gcdString;
-
+exports.addBinary=addBinary;
+exports.strobogrammaticNumber=strobogrammaticNumber;
+exports.containsDuplicates=containsDuplicates;
+exports.gcfStrings=gcfStrings;
+exports.columnTitle=columnTitle;
+exports.missingNumber=missingNumber;
+exports.searchInsertPosition=searchInsertPosition;
+exports.maxSubarray=maxSubarray;
+exports.reverseVowels=reverseVowels;
+exports.summaryRanges=summaryRanges;
+exports.addTwoNumbers=addTwoNumbers;
+exports.moveZeros=moveZeros;
 //Project Q1
 function findPorcupineNumber(n) {
     let next_prime=nextPrime(n)
@@ -126,18 +132,30 @@ function closestToZero(arr3) {
   console.log(closestToZero([0, 3, 10, 7, -8, -5,1]));//return 0 and 1
 //==============================================================================================
 //Project Q5
-function Nonnegetive(arr4,arr5){ 
-let newArr=[];
-let value1=arr4.join('');
-let value2=arr5.join('');
-let result=(Number(value1)+Number(value2))
-let newString=result.toString()
-for(let i=0;i<newString.length;i++){
-    newArr.push(+newString[i]);
-}
-return newArr;
-}
-console.log(Nonnegetive([3,4,2],[4,6,5]));
+function addTwoNumbers(arr1, arr2, addToArray) {
+    let result = [];
+    let num1 = 0;
+    let num2 = 0;
+    for (let i = 0; i < arr1.length; i++) {
+      num1 = num1 * 10 + arr1[i];
+    }
+    for (let i = 0; i < arr2.length; i++) {
+      num2 = num2 * 10 + arr2[i];
+    }
+    result = addToArray(num1 + num2);
+    return result;
+  }
+  let addToArray = (n) => {
+    let digitArray = [];
+    let index = 0;
+    while (n > 0) {
+      digitArray[index++] = n % 10;
+      n = Math.floor(n / 10);
+    }
+    return digitArray;
+  };
+  console.log(addTwoNumbers([3, 4, 2], [4, 6, 5], addToArray));
+  
 //=============================================================================================
 //Project Q6
 function addBinary1(bin1,bin2){
@@ -155,57 +173,39 @@ function addBinary1(bin1,bin2){
     }
     return carry?(String(carry)+sum):sum    
 }
-let  addBinary = function(a, b) {
+///using built in method
+function addBinary(a, b) {
     var dec = Number(parseInt(a, 2)) + Number(parseInt(b, 2));
     return dec.toString(2);
 };
-console.log(addBinary("11","1"))
-console.log(addBinary1("110","001"))
+console.log(addBinary("1100","001"))
+console.log(addBinary1("110","000"))
 //==============================================================================================
 //Project Q7
-function ExcelSheet1(num){
-    let k='1            ';
-    let i='28           ';
-    let j='701          ';
-    if(num===1){
-    k+="A";
-    return k;
-    }else if(num===28){
-    i+="AB";
-    return i;
-    }else if(num===701){
-    j+="yz"+"     ";
-    return j;
+function columnTitle(n){
+    let charc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let result="";
+    let index;
+    if(n>0){
+        while(n>26){
+            index=n%26
+                result=charc[index-1]+result;
+                n=Math.floor(n/26)
+        }
+        result=charc[n-1]+result;
     }
+   
+return result
 }
-console.log(ExcelSheet1(1));
-console.log(ExcelSheet1(28));
-console.log(ExcelSheet1(701));
-//===============================================================================================
-//project 8
-function ExcelSheet2(letter){
-    let k='A            ';
-    let i='AB           ';
-    let j='YZ           ';
-    if(letter==='A'){
-    k+=1;
-    return k;
-    }else if(letter==='AB'){
-    i+=28;
-    return i;
-    }else if(letter==='YZ'){
-    j+=701;
-    return j;
-    }
-}
-console.log(ExcelSheet2('A'));
-console.log(ExcelSheet2('AB'));
-console.log(ExcelSheet2('YZ'));
-//================================================================================================
+let va=676
+let c = [1, 26,27,28,29,30,698, 699,700,701];
+//console.log(c.map(convertNumberToString));
+console.log(columnTitle(va))
+//=====================================================================================================
 //Project 9
-function convertToSingleDigit(arr6) {
+function convertToSingleDigit(arr1) {
     let num1 = 0;
-    for (let i = 0; i < arr6.length; i++) {
+    for (let i = 0; i < arr1.length; i++) {
       num1 = num1 * 10 + arr1[i];
     }
     return num1;
@@ -226,20 +226,28 @@ function pushToArray(n){
     }
     return arr;
 }
-function isStroboganticNumber(n){
+function strobogrammaticNumber(n){
     let num=pushToArray(n)//put to array forms
     let mapNum=num.map(mapNumber);
     let m=convertToSingleDigit(mapNum);
     return n===m;
 }
-console.log(isStroboganticNumber(69))
-console.log(isStroboganticNumber(101))
-console.log(isStroboganticNumber(88))
-console.log(isStroboganticNumber(868))
+console.log(strobogrammaticNumber(69))
+console.log(strobogrammaticNumber(101))
+console.log(strobogrammaticNumber(88))
+console.log(strobogrammaticNumber(868))
+
+// let arr = [-1, 3, -4, 5, 6, 9];
+// function absolute(n) {
+//   return n > 0 ? n : 78;
+// }
+// let newArr = arr.map(absolute);
+// console.log(newArr);
+
 
 //===============================================================================================
 //Project Q10
-function missingEle(arr7){
+function missingNumber(arr7){
     arr7.sort();
     for(let i=0;i<arr7.length;i++){
     if(arr7[i+1]-arr7[i]!==1){
@@ -247,11 +255,11 @@ function missingEle(arr7){
     }
     }
 }
-console.log(missingEle([3,0,1]));
-console.log(missingEle([9,6,4,2,3,5,7,0,1] ));
+console.log(missingNumber([3,0,1]));
+console.log(missingNumber([9,6,4,2,3,5,7,0,1] ));
 //=================================================================================================
 //Project Q11
-function targetedV(arr8,target){
+function searchInsertPosition(arr8,target){
 
 for(let i=0;i<arr8.length;i++){
         if(arr8[i]===target){
@@ -268,13 +276,13 @@ for(let i=0;i<arr8.length;i++){
     }
 }
 }
-    console.log(targetedV([1,3,5,6], 5));
-    console.log(targetedV([1,3,5,6], 2 ));
-    console.log(targetedV([1,3,5,6], 7));
-    console.log(targetedV([1,3,5,6], 0));
+    console.log(searchInsertPosition([1,3,5,6], 5));
+    console.log(searchInsertPosition([1,3,5,6], 2 ));
+    console.log(searchInsertPosition([1,3,5,6], 7));
+    console.log(searchInsertPosition([1,3,5,6], 0));
 //==========================================================================================
 //Project Q12
-function maxSubArraySum(arr9) {
+function maxSubarray(arr9) {
     let size = arr9.length;
     let maxSum = findMin(arr9);
     let computedSum = 0;
@@ -294,14 +302,14 @@ function maxSubArraySum(arr9) {
     return min;
   }
   let arr0 = [-2, -3, 4, -1, -2, 1, 5, -3];
-  console.log(maxSubArraySum(arr0));
+  console.log(maxSubarray(arr0));
   arr0=[-2,1,-3,4,-1,2,1,-5,4];
-  console.log(maxSubArraySum(arr0))
+  console.log(maxSubarray(arr0))
   arr0=[-2,-1,-3,-4,-1,-2,-1,-5,4];
-  console.log(maxSubArraySum(arr0))
+  console.log(maxSubarray(arr0))
 //============================================================================================
 //Project Q13
-function absoluteDifference(arr10,k){
+function containsDuplicates(arr10,k){
     for(let i=0;i<arr.length;i++){
         for(let j=1;j<=arr10.length;j++){
             if(arr10[i]===arr10[j]&&j-i<=k){
@@ -312,12 +320,12 @@ function absoluteDifference(arr10,k){
             }         }
     }
 }
-console.log(absoluteDifference([1,2,3,1],3));
-console.log(absoluteDifference([1,0,1,1],1));
-console.log(absoluteDifference([1,2,3,1,2,3],2));
+console.log(containsDuplicates([1,2,3,1],3));
+console.log(containsDuplicates([1,0,1,1],1));
+console.log(containsDuplicates([1,2,3,1,2,3],2));
 //=============================================================================================
 //Project Q15
-function relativeorder(arr11){
+function moveZeros(arr11){
     for(let i=0;i<arr11.length;i++){
     for(let j=i;j<arr11.length;j++){
         let temp=arr11[i];
@@ -328,7 +336,7 @@ function relativeorder(arr11){
     } 
     return arr11;
 }
-console.log(relativeorder([0,1,0,12,3]));
+console.log(moveZeros([0,1,0,12,3]));
 //===============================================================================================
 //project Q16
 function isVowel(v) {
@@ -336,7 +344,7 @@ function isVowel(v) {
     return match.test(v);
   }
   
-  function reverseVowel(str) {
+  function reverseVowels(str) {
           str = str.split("");
           let j = str.length - 1;
           let i = 0;
@@ -360,7 +368,7 @@ function isVowel(v) {
   }
   
   let str = "hello";
-  console.log(reverseVowel(str));
+  console.log(reverseVowels(str));
 //==============================================================================================
 //Project Q17
 function summaryRanges(arr12) {
@@ -387,7 +395,7 @@ function summaryRanges(arr12) {
   console.log(summaryRanges([0]));
 //================================================================================================
 //Project Q18
-function gcdString(str1, str2) {
+function gcfStrings(str1, str2) {
     let gcd = "";
     if (str2.length > str1.length) {
       let temp = str1;
@@ -404,10 +412,10 @@ function gcdString(str1, str2) {
   }
   let str1= "ABCABC"
   let  str2="ABC"
-  console.log(gcdString(str1,str2))
+  console.log(gcfStrings(str1,str2))
   str1="ABABAB", str2="ABAB"
-  console.log(gcdString(str1,str2))
+  console.log(gcfStrings(str1,str2))
   str1="ABCDEF", str2="ABC"
-  console.log(gcdString(str1,str2))
+  console.log(gcfStrings(str1,str2))
   str1="ABXCDEF", str2="ABC"
-  console.log(gcdString(str1,str2))
+  console.log(gcfStrings(str1,str2))

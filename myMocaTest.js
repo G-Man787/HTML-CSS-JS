@@ -1,6 +1,6 @@
 "use strict";
 const assert = require("assert");
-const test = require("./18QuestionExercise.js");
+const test = require("./JavascriptExercise");
 
 /*eslint-disable*/
 
